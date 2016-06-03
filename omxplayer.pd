@@ -1,0 +1,13 @@
+#N canvas 0 22 450 300 10;
+#X obj 113 98 ggee/shell;
+#X obj 114 148 print 1;
+#X obj 181 161 print 2;
+#X msg 114 15 top;
+#X msg 129 58 kill;
+#X msg 175 57 /Applications/Firefox.app/Contents/MacOS/firefox-bin
+;
+#X connect 0 0 1 0;
+#X connect 0 1 2 0;
+#X connect 3 0 0 0;
+#X connect 4 0 0 0;
+#X connect 5 0 0 0;
