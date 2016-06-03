@@ -1,0 +1,3 @@
+[submodule "pd-osc"]
+	path = pd-osc
+	url = https://github.com/gllmAR/pd-osc
