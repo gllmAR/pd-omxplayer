@@ -1,0 +1,9 @@
+
+pd -nogui ~/src/pd-omxplayer/omx-osc.pd 
+
+s
+Setup DBus Control Script:
+
+
+chmod +rx OMXdbuscontrol.sh
+sudo cp dbuscontrol.sh /usr/local/bin

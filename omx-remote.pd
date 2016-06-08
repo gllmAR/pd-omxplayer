@@ -1,0 +1,62 @@
+#N canvas 511 54 840 634 10;
+#X msg 123 90 /p1 volume \$1;
+#X obj 126 68 hsl 128 15 0 10 0 0 empty empty empty -2 -8 0 10 -262144
+-1 -1 0 1;
+#X obj 100 591 pd-osc/oSend 192.168.111.31 9090;
+#X obj 134 113 hsl 128 15 0.9 1.15 0 0 empty empty empty -2 -8 0 10
+-262144 -1 -1 4700 1;
+#X msg 131 133 /p1 rate \$1;
+#X obj 481 55 metro 100;
+#X obj 490 22 tgl 15 0 empty empty empty 17 7 0 10 -262144 -1 -1 0
+1;
+#X floatatom 520 35 5 0 0 0 - - -, f 5;
+#X msg 137 176 /p1 setalpha \$1;
+#X obj 141 156 hsl 128 15 0 255 0 0 empty empty empty -2 -8 0 10 -262144
+-1 -1 9600 1;
+#X obj 183 241 hsl 128 15 0 10 0 0 empty empty empty -2 -8 0 10 -262144
+-1 -1 0 1;
+#X obj 191 286 hsl 128 15 0.9 1.15 0 0 empty empty empty -2 -8 0 10
+-262144 -1 -1 0 1;
+#X obj 198 329 hsl 128 15 0 255 0 0 empty empty empty -2 -8 0 10 -262144
+-1 -1 0 1;
+#X msg 180 263 /p2 volume \$1;
+#X msg 188 306 /p2 rate \$1;
+#X msg 194 349 /p2 setalpha \$1;
+#X msg 161 214 /p2 omxplayer --layer 2 --loop --no-osd ~/media/earth-and-technicians.mp4
+;
+#X msg 104 41 /p1 omxplayer --blank --layer 1 --loop --no-osd ~/media/test.mov
+;
+#X obj 230 428 hsl 128 15 0 10 0 0 empty empty empty -2 -8 0 10 -262144
+-1 -1 0 1;
+#X obj 238 473 hsl 128 15 0.9 1.15 0 0 empty empty empty -2 -8 0 10
+-262144 -1 -1 0 1;
+#X obj 245 516 hsl 128 15 0 255 0 0 empty empty empty -2 -8 0 10 -262144
+-1 -1 5700 1;
+#X msg 227 450 /p3 volume \$1;
+#X msg 235 493 /p3 rate \$1;
+#X msg 241 536 /p3 setalpha \$1;
+#X msg 208 392 /p3 omxplayer --layer 3 --loop --no-osd ~/media/spinning-gyroscope-during-aste.mp4
+;
+#X connect 0 0 2 0;
+#X connect 1 0 0 0;
+#X connect 3 0 4 0;
+#X connect 4 0 2 0;
+#X connect 6 0 5 0;
+#X connect 7 0 5 1;
+#X connect 8 0 2 0;
+#X connect 9 0 8 0;
+#X connect 10 0 13 0;
+#X connect 11 0 14 0;
+#X connect 12 0 15 0;
+#X connect 13 0 2 0;
+#X connect 14 0 2 0;
+#X connect 15 0 2 0;
+#X connect 16 0 2 0;
+#X connect 17 0 2 0;
+#X connect 18 0 21 0;
+#X connect 19 0 22 0;
+#X connect 20 0 23 0;
+#X connect 21 0 2 0;
+#X connect 22 0 2 0;
+#X connect 23 0 2 0;
+#X connect 24 0 2 0;
