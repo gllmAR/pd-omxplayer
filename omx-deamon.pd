@@ -1,0 +1,10 @@
+#N canvas 228 69 338 255 10;
+#X obj 52 27 pd-osc/oReceive 9090;
+#X obj 110 57 send;
+#X obj 53 89 omxplayer p1 1;
+#X obj 54 113 omxplayer p2 2;
+#X obj 54 138 omxplayer p3 3;
+#X obj 54 161 omxplayer p4 4;
+#X obj 54 186 omxplayer p5 5;
+#X connect 0 1 1 0;
+#X connect 0 2 1 1;

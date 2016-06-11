@@ -1,0 +1,11 @@
+#N canvas 15 23 450 300 10;
+#X obj 36 72 ggee/shell;
+#X obj 36 41 r toShell;
+#X obj 38 172 stdout;
+#X obj 147 73 loadbang;
+#X msg 144 133 ready;
+#X connect 0 0 2 0;
+#X connect 0 1 2 0;
+#X connect 1 0 0 0;
+#X connect 3 0 4 0;
+#X connect 4 0 2 0;

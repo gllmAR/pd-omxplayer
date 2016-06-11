@@ -1,62 +1,168 @@
-#N canvas 511 54 840 634 10;
-#X msg 123 90 /p1 volume \$1;
-#X obj 126 68 hsl 128 15 0 10 0 0 empty empty empty -2 -8 0 10 -262144
+#N canvas 514 51 939 719 10;
+#X obj 60 131 hsl 128 15 0 10 0 0 empty empty empty -2 -8 0 10 -262144
 -1 -1 0 1;
-#X obj 100 591 pd-osc/oSend 192.168.111.31 9090;
-#X obj 134 113 hsl 128 15 0.9 1.15 0 0 empty empty empty -2 -8 0 10
--262144 -1 -1 4700 1;
-#X msg 131 133 /p1 rate \$1;
-#X obj 481 55 metro 100;
-#X obj 490 22 tgl 15 0 empty empty empty 17 7 0 10 -262144 -1 -1 0
-1;
-#X floatatom 520 35 5 0 0 0 - - -, f 5;
-#X msg 137 176 /p1 setalpha \$1;
-#X obj 141 156 hsl 128 15 0 255 0 0 empty empty empty -2 -8 0 10 -262144
--1 -1 9600 1;
-#X obj 183 241 hsl 128 15 0 10 0 0 empty empty empty -2 -8 0 10 -262144
--1 -1 0 1;
-#X obj 191 286 hsl 128 15 0.9 1.15 0 0 empty empty empty -2 -8 0 10
+#X obj 69 201 hsl 128 15 0.9 1.15 0 0 empty empty empty -2 -8 0 10
 -262144 -1 -1 0 1;
-#X obj 198 329 hsl 128 15 0 255 0 0 empty empty empty -2 -8 0 10 -262144
+#X obj 76 240 hsl 128 15 0 255 0 0 empty empty empty -2 -8 0 10 -262144
 -1 -1 0 1;
-#X msg 180 263 /p2 volume \$1;
-#X msg 188 306 /p2 rate \$1;
-#X msg 194 349 /p2 setalpha \$1;
-#X msg 161 214 /p2 omxplayer --layer 2 --loop --no-osd ~/media/earth-and-technicians.mp4
-;
-#X msg 104 41 /p1 omxplayer --blank --layer 1 --loop --no-osd ~/media/test.mov
-;
-#X obj 230 428 hsl 128 15 0 10 0 0 empty empty empty -2 -8 0 10 -262144
+#X obj 401 43 hsl 128 15 0 10 0 0 empty empty empty -2 -8 0 10 -262144
 -1 -1 0 1;
-#X obj 238 473 hsl 128 15 0.9 1.15 0 0 empty empty empty -2 -8 0 10
+#X obj 409 88 hsl 128 15 0.9 1.15 0 0 empty empty empty -2 -8 0 10
 -262144 -1 -1 0 1;
-#X obj 245 516 hsl 128 15 0 255 0 0 empty empty empty -2 -8 0 10 -262144
--1 -1 5700 1;
-#X msg 227 450 /p3 volume \$1;
-#X msg 235 493 /p3 rate \$1;
-#X msg 241 536 /p3 setalpha \$1;
-#X msg 208 392 /p3 omxplayer --layer 3 --loop --no-osd ~/media/spinning-gyroscope-during-aste.mp4
+#X obj 416 131 hsl 128 15 0 255 0 0 empty empty empty -2 -8 0 10 -262144
+-1 -1 0 1;
+#X msg 398 65 /p2 volume \$1;
+#X msg 406 108 /p2 rate \$1;
+#X msg 412 151 /p2 setalpha \$1;
+#X obj 614 47 hsl 128 15 0 10 0 0 empty empty empty -2 -8 0 10 -262144
+-1 -1 0 1;
+#X obj 625 92 hsl 128 15 0.9 1.15 0 0 empty empty empty -2 -8 0 10
+-262144 -1 -1 0 1;
+#X obj 633 136 hsl 128 15 0 255 0 0 empty empty empty -2 -8 0 10 -262144
+-1 -1 0 1;
+#X msg 611 69 /p3 volume \$1;
+#X msg 622 112 /p3 rate \$1;
+#X msg 629 156 /p3 setalpha \$1;
+#X msg 601 10 /p3 omxplayer --layer 3 --loop --no-osd ~/media/spinning-gyroscope-during-aste.mp4
 ;
-#X connect 0 0 2 0;
-#X connect 1 0 0 0;
-#X connect 3 0 4 0;
-#X connect 4 0 2 0;
-#X connect 6 0 5 0;
-#X connect 7 0 5 1;
-#X connect 8 0 2 0;
-#X connect 9 0 8 0;
+#X msg 379 11 /p2 omxplayer --loop --no-osd ~/media/earth-and-technicians.mp4
+;
+#X obj 600 216 t a;
+#X obj 377 171 t a;
+#X obj 5 623 pd-osc/oSend 192.168.111.31 9090;
+#X obj 14 527 qlimitor 100;
+#X floatatom 97 286 5 0 0 0 - - -, f 5;
+#X obj 73 308 t b;
+#X floatatom 132 287 5 0 0 0 - - -, f 5;
+#X floatatom 167 288 5 0 0 0 - - -, f 5;
+#X floatatom 202 289 5 0 0 0 - - -, f 5;
+#X obj 14 550 send \$0-OSC;
+#X obj 5 589 r \$0-OSC;
+#X obj 377 218 send \$0-OSC;
+#X obj 601 270 send \$0-OSC;
+#X floatatom 101 366 5 0 0 0 - - -, f 5;
+#X obj 77 388 t b;
+#X floatatom 136 367 5 0 0 0 - - -, f 5;
+#X floatatom 171 368 5 0 0 0 - - -, f 5;
+#X floatatom 206 369 5 0 0 0 - - -, f 5;
+#X msg 443 658 /p1 setaspectmode \$1;
+#X msg 445 635 letterbox;
+#X msg 508 636 fill;
+#X msg 544 638 stretch;
+#X msg 598 637 default;
+#X text 451 611 broken;
+#X floatatom 126 438 5 0 0 0 - - -, f 5;
+#X obj 100 437 f;
+#X obj 80 437 bng 15 250 50 0 empty empty empty 17 7 0 10 -262144 -1
+-1;
+#X floatatom 744 639 25 0 0 0 - - -, f 25;
+#X obj 713 637 f;
+#X obj 693 637 bng 15 250 50 0 empty empty empty 17 7 0 10 -262144
+-1 -1;
+#X msg 713 659 /p1 setposition \$1;
+#X text 710 616 broken;
+#X obj 15 97 t a, f 4;
+#X obj 13 504 list prepend /p1;
+#X msg 58 154 volume \$1;
+#X msg 72 260 setalpha \$1;
+#X msg 72 330 setvideopos \$1 \$2 \$3 \$4;
+#X msg 76 410 setvideocroppos \$1 \$2 \$3 \$4;
+#X msg 100 459 seek \$1;
+#X msg 16 13 omxplayer --blank --loop --no-osd ~/media/test.mov;
+#X msg 61 36 rateup;
+#X msg 64 60 ratedown;
+#X msg 26 36 stop;
+#X msg 131 36 volumeup;
+#X msg 134 57 volumedown;
+#X obj 132 93 t a, f 4;
+#X msg 205 37 hidevideo;
+#X msg 205 56 unhidevideo;
+#X obj 203 91 t a, f 4;
+#X obj 62 94 t a, f 4;
+#X msg 27 59 pause;
+#X obj 305 677 t a, f 4;
+#X msg 307 623 togglesubtitles;
+#X msg 307 642 hidesubtitles;
+#X msg 311 658 showsubtitles;
+#X obj 69 183 hsl 128 15 0 10 0 0 empty empty empty -2 -8 0 10 -262144
+-1 -1 0 1;
+#X msg 66 221 rate \$1;
+#X text 304 601 to be tested;
+#X obj 97 309 pack f f f f, f 18;
+#X obj 101 389 pack f f f f, f 18;
+#X obj 377 195 qlimitor 100;
+#X obj 600 241 qlimitor 100;
+#X connect 0 0 51 0;
+#X connect 1 0 73 0;
+#X connect 2 0 52 0;
+#X connect 3 0 6 0;
+#X connect 4 0 7 0;
+#X connect 5 0 8 0;
+#X connect 6 0 18 0;
+#X connect 7 0 18 0;
+#X connect 8 0 18 0;
+#X connect 9 0 12 0;
 #X connect 10 0 13 0;
 #X connect 11 0 14 0;
-#X connect 12 0 15 0;
-#X connect 13 0 2 0;
-#X connect 14 0 2 0;
-#X connect 15 0 2 0;
-#X connect 16 0 2 0;
-#X connect 17 0 2 0;
-#X connect 18 0 21 0;
-#X connect 19 0 22 0;
-#X connect 20 0 23 0;
-#X connect 21 0 2 0;
-#X connect 22 0 2 0;
-#X connect 23 0 2 0;
-#X connect 24 0 2 0;
+#X connect 12 0 17 0;
+#X connect 13 0 17 0;
+#X connect 14 0 17 0;
+#X connect 15 0 17 0;
+#X connect 16 0 18 0;
+#X connect 17 0 78 0;
+#X connect 18 0 77 0;
+#X connect 20 0 26 0;
+#X connect 21 0 75 0;
+#X connect 22 0 75 0;
+#X connect 23 0 22 0;
+#X connect 23 0 75 1;
+#X connect 24 0 22 0;
+#X connect 24 0 75 2;
+#X connect 25 0 22 0;
+#X connect 25 0 75 3;
+#X connect 27 0 19 0;
+#X connect 30 0 76 0;
+#X connect 31 0 76 0;
+#X connect 32 0 31 0;
+#X connect 32 0 76 1;
+#X connect 33 0 31 0;
+#X connect 33 0 76 2;
+#X connect 34 0 31 0;
+#X connect 34 0 76 3;
+#X connect 36 0 35 0;
+#X connect 37 0 35 0;
+#X connect 38 0 35 0;
+#X connect 39 0 35 0;
+#X connect 41 0 42 1;
+#X connect 42 0 55 0;
+#X connect 43 0 42 0;
+#X connect 44 0 45 1;
+#X connect 45 0 47 0;
+#X connect 46 0 45 0;
+#X connect 49 0 50 0;
+#X connect 50 0 20 0;
+#X connect 51 0 50 0;
+#X connect 52 0 50 0;
+#X connect 53 0 50 0;
+#X connect 54 0 50 0;
+#X connect 55 0 50 0;
+#X connect 56 0 49 0;
+#X connect 57 0 66 0;
+#X connect 58 0 66 0;
+#X connect 59 0 49 0;
+#X connect 60 0 62 0;
+#X connect 61 0 62 0;
+#X connect 62 0 66 0;
+#X connect 63 0 65 0;
+#X connect 64 0 65 0;
+#X connect 65 0 62 0;
+#X connect 66 0 49 0;
+#X connect 67 0 49 0;
+#X connect 69 0 68 0;
+#X connect 70 0 68 0;
+#X connect 72 0 73 0;
+#X connect 73 0 50 0;
+#X connect 75 0 53 0;
+#X connect 76 0 54 0;
+#X connect 77 0 28 0;
+#X connect 78 0 29 0;

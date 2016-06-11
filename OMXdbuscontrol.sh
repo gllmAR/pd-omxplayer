@@ -48,11 +48,11 @@ rate)
 
 
 
-rate-)
+ratedown)
 dbus-send --print-reply=literal --session --dest=$1 /org/mpris/MediaPlayer2 org.mpris.MediaPlayer2.Player.Action int32:1 >/dev/null
 ;;
 
-rate+)
+rateup)
 dbus-send --print-reply=literal --session --dest=$1 /org/mpris/MediaPlayer2 org.mpris.MediaPlayer2.Player.Action int32:2 >/dev/null
 ;;
 
@@ -103,11 +103,11 @@ volumeup)
 volumedown)
 	dbus-send --print-reply=literal --session --dest=$1 /org/mpris/MediaPlayer2 org.mpris.MediaPlayer2.Player.Action int32:17 >/dev/null
 	;;
-	
+
 togglesubtitles)
 	dbus-send --print-reply=literal --session --dest=$1 /org/mpris/MediaPlayer2 org.mpris.MediaPlayer2.Player.Action int32:12 >/dev/null
 	;;
-	
+
 hidesubtitles)
 	dbus-send --print-reply=literal --session --dest=$1 /org/mpris/MediaPlayer2 org.mpris.MediaPlayer2.Player.Action int32:30 >/dev/null
 	;;
