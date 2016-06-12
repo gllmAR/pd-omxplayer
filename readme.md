@@ -2,16 +2,58 @@
 [pd-OMXplayer](https://github.com/gllmAR/pd-omxplayer) is a [pureData](http://puredata.info) wrapper for [OMXplayer](https://github.com/popcornmix/omxplayer).
 It is based on the shell extern in the [ggee](https://puredata.info/downloads/ggee) library and a modified version of [dbuscontrol.sh](https://github.com/popcornmix/omxplayer/blob/master/dbuscontrol.sh).
 
+
+
 The core patch [omxplayer.pd](https://github.com/gllmAR/pd-omxplayer/blob/master/omxplayer.pd) instantiate OMXplayer instances and sends dbus command to each instances with this script [OMXdbuscontrol.sh](https://github.com/gllmAR/pd-omxplayer/blob/master/OMXdbuscontrol.sh). 
 
-[omx-deamon.pd](https://github.com/gllmAR/pd-omxplayer/blob/master/omx-osc.pd) and [omx-remote.pd](https://github.com/gllmAR/pd-omxplayer/blob/master/omx-remote.pd) expose OSC remote control and deamon for  
+
+[omx-deamon.pd](https://github.com/gllmAR/pd-omxplayer/blob/master/omx-deamon.pd) and [omx-remote.pd](https://github.com/gllmAR/pd-omxplayer/blob/master/omx-remote.pd) expose OSC remote control paired with a deamon running on the pi for up to 5 files with alpha blending.
 
 [pd-OMXplayer](https://github.com/gllmAR/pd-omxplayer) as been developed raspbian-lite without X and it is meant to run this way (not tested with x11).
 
 
+# Usage
+## [OMXdbuscontrol.sh](https://github.com/gllmAR/pd-omxplayer/blob/master/OMXdbuscontrol.sh)
+This bash script can be use directly with OMXplayer.
+
+Launch a omxplayer instance with a dbus name like so (where ~/media/test.mov is your media file)
+
+```
+omxplayer --dbus_name org.mpris.MediaPlayer2.omxplayer --layer 1 --blank ~/media/test.mov
+```
+
+use the script by providing the dbus name of the target and the parameters 
+```
+./OMXdbuscontrol.sh [dbusname] [parameter] [value1] [value2] [value3] [value4]
+```
+
+this is a exemple
+
+```
+./OMXdbuscontrol.sh org.mpris.MediaPlayer2.omxplayer setalpha 54
+```
+when the permission are not set to execution, you can prepend `bash` to the script line
+
+```
+bash OMXdbuscontrol.sh org.mpris.MediaPlayer2.omxplayer setalpha 54
+```
+
+## [omx-deamon.pd](https://github.com/gllmAR/pd-omxplayer/blob/master/omx-deamon.pd)
+omx-deamon stacks 5 omxplayers instances and bridge the shell script with OSC commands. 
+It can be run at boot with the service 
+
+
+
+## omx-remote
+Send commands with omx-remote.pd 
+
+* Change the adress ip to address ip of your pi
+* Change the medias path to some actual medias files 
+
+
 # Installation
 
-#### OMXPlayer
+## OMXPlayer
 Remove installed omxplayer 
 
 ```
@@ -27,18 +69,18 @@ follow the instructions here
 
 Quirk: first time I tried to compile ffmpeg, it didn't work, I removed OMXplayer folder and started the process again and it worked.
 
-#### Pure Data
+## Pure Data
 
 For the sake of simplicity, the included version in the apt-get method works fine. No need to compile here.
 
 
 ```
-apt-get install puredata-core puredata-extra pd-ggee 
+apt-get install puredata-core pd-ggee 
 ```
 
-### pd-omxplayer
+## pd-omxplayer
 
-Create a folder for the stuff:
+Create a folder src in the home directory:
 ```
 cd ~/
 mkdir src
@@ -71,26 +113,37 @@ pd -nogui ~/src/pd-omxplayer/omx-deamon.pd
 
 optional : copy the service deamon in the systemd service folder and activate for on boot 
 ```
-
+sudo cp ~/src/pd-omxplayer/service/* /etc/systemd/system/
+sudo systemctl daemon-reload
+sudo systemctl start pd-omx.service
+sudo systemctl enable pd-omx.service
 ```
 
+optionnal : for scrolling posting of ther service: 
+```
+sudo journalctl -f -u pd-omx
+```
 
+# Addendum
 
-Send commands with omx-remote.pd 
-
-* Change the adress ip to address ip of your pi
-* Change the medias path to some actual medias files 
-
-### Supported features of omx-deamon
+## Supported features of omx-deamon
 
 * Support multi layers
 * 5 players name /p1 to /p5
 
 * todo
-	* kill the player instance when not used 
-	* systemd service	
+	* fix the error message when movie is manualy stop and started again, there is a little quirk.
+	* add a debug flag for proper debug printing
+	* get playhead position and broadcast to OSC
+	* fix setposition in the script 
+	
+* to be fix
+	* rate is not preserved after looping ()
+	* 
+	 
 
-### Supported features of OMXdbuscontrol.sh
+
+## Supported features of OMXdbuscontrol.sh
 
 * volume [x]
 * rate [x]

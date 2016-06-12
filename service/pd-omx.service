@@ -1,0 +1,10 @@
+[Unit]
+Description= pd-omx service
+
+[Service]
+User=pi
+ExecStart=/usr/bin/pd -nogui /home/pi/src/pd-omxplayer/omx-deamon.pd
+
+
+[Install]
+WantedBy=multi-user.target
