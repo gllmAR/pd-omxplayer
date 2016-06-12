@@ -7,58 +7,23 @@ It is based on the shell extern in the [ggee](https://puredata.info/downloads/gg
 The core patch [omxplayer.pd](https://github.com/gllmAR/pd-omxplayer/blob/master/omxplayer.pd) instantiate OMXplayer instances and sends dbus command to each instances with this script [OMXdbuscontrol.sh](https://github.com/gllmAR/pd-omxplayer/blob/master/OMXdbuscontrol.sh). 
 
 
-[omx-deamon.pd](https://github.com/gllmAR/pd-omxplayer/blob/master/omx-deamon.pd) and [omx-remote.pd](https://github.com/gllmAR/pd-omxplayer/blob/master/omx-remote.pd) expose OSC remote control paired with a deamon running on the pi for up to 5 files with alpha blending.
+[omx-deamon.pd](https://github.com/gllmAR/pd-omxplayer/blob/master/omx-deamon.pd) and [omx-remote.pd](https://github.com/gllmAR/pd-omxplayer/blob/master/omx-remote.pd) expose OSC remote control paired with a deamon running on the Pi for up to 5 files with alpha blending.
 
-[pd-OMXplayer](https://github.com/gllmAR/pd-omxplayer) as been developed raspbian-lite without X and it is meant to run this way (not tested with x11).
-
-
-# Usage
-## [OMXdbuscontrol.sh](https://github.com/gllmAR/pd-omxplayer/blob/master/OMXdbuscontrol.sh)
-This bash script can be use directly with OMXplayer.
-
-Launch a omxplayer instance with a dbus name like so (where ~/media/test.mov is your media file)
-
-```
-omxplayer --dbus_name org.mpris.MediaPlayer2.omxplayer --layer 1 --blank ~/media/test.mov
-```
-
-use the script by providing the dbus name of the target and the parameters 
-```
-./OMXdbuscontrol.sh [dbusname] [parameter] [value1] [value2] [value3] [value4]
-```
-
-this is a exemple
-
-```
-./OMXdbuscontrol.sh org.mpris.MediaPlayer2.omxplayer setalpha 54
-```
-when the permission are not set to execution, you can prepend `bash` to the script line
-
-```
-bash OMXdbuscontrol.sh org.mpris.MediaPlayer2.omxplayer setalpha 54
-```
-
-## [omx-deamon.pd](https://github.com/gllmAR/pd-omxplayer/blob/master/omx-deamon.pd)
-omx-deamon stacks 5 omxplayers instances and bridge the shell script with OSC commands. 
-It can be run at boot with the service 
-
-
-
-## omx-remote
-Send commands with omx-remote.pd 
-
-* Change the adress ip to address ip of your pi
-* Change the medias path to some actual medias files 
+[pd-OMXplayer](https://github.com/gllmAR/pd-omxplayer) has been developed raspbian-lite without X and it is meant to run this way (not tested with x11).
 
 
 # Installation
 
 ## OMXPlayer
+
+Grab a fresh compiled version of omxplayer  
+
+At time of writing, the stock omxplayer available in raspbian is not fully compliant with all dbus controls   
+
 Remove installed omxplayer 
 
 ```
 apt-get remove omxplayer
-
 ```
 
 Compile and Install the last version of OMXPlayer
@@ -72,7 +37,6 @@ Quirk: first time I tried to compile ffmpeg, it didn't work, I removed OMXplayer
 ## Pure Data
 
 For the sake of simplicity, the included version in the apt-get method works fine. No need to compile here.
-
 
 ```
 apt-get install puredata-core pd-ggee 
@@ -99,19 +63,13 @@ cd pd-omxplayer
 chmod +rx OMXdbuscontrol.sh
 ```
 
-optional  : copy script to bin folder 
-
-```
-sudo cp OMXdbuscontrol.sh /usr/local/bin
-```
-
-launch the patch omx-deamon.pd on the raspberry pi
+launch omx-deamon.pd on the raspberry pi
 
 ```
 pd -nogui ~/src/pd-omxplayer/omx-deamon.pd 
 ```
 
-optional : copy the service deamon in the systemd service folder and activate for on boot 
+optional : copy the service deamon in the systemd service folder and activate on boot 
 ```
 sudo cp ~/src/pd-omxplayer/service/* /etc/systemd/system/
 sudo systemctl daemon-reload
@@ -119,20 +77,60 @@ sudo systemctl start pd-omx.service
 sudo systemctl enable pd-omx.service
 ```
 
-optionnal : for scrolling posting of ther service: 
+optional : for scrolling posting of the service: 
 ```
 sudo journalctl -f -u pd-omx
 ```
+
+# Usage
+## [OMXdbuscontrol.sh](https://github.com/gllmAR/pd-omxplayer/blob/master/OMXdbuscontrol.sh)
+This bash script can be used directly with OMXplayer.
+
+Launch a omxplayer instance with a dbus name like so (where ~/media/test.mov is your media file)
+
+```
+omxplayer --dbus_name org.mpris.MediaPlayer2.omxplayer --layer 1 --blank ~/media/test.mov
+```
+
+use the script by providing the dbus name of the target and the parameters 
+```
+./OMXdbuscontrol.sh [dbusname] [parameter] [value1] [value2] [value3] [value4]
+```
+
+this is an example
+
+```
+./OMXdbuscontrol.sh org.mpris.MediaPlayer2.omxplayer setalpha 54
+```
+when the permissions are not set to execution, you can prepend `bash` to the script line
+
+```
+bash OMXdbuscontrol.sh org.mpris.MediaPlayer2.omxplayer setalpha 54
+```
+
+## [omx-deamon.pd](https://github.com/gllmAR/pd-omxplayer/blob/master/omx-deamon.pd)
+omx-deamon stacks 5 omxplayers instances and bridge the shell script with OSC commands. 
+It can be run at boot with the systemd service pd-omx.service
+
+
+
+## omx-remote
+Send commands with omx-remote.pd 
+
+* Change the address IP to address IP of your pi
+* Change the medias path to some actual media files 
+
+
 
 # Addendum
 
 ## Supported features of omx-deamon
 
-* Support multi layers
+* Support multi-layers
 * 5 players name /p1 to /p5
 
 * todo
-	* fix the error message when movie is manualy stop and started again, there is a little quirk.
+	* fix the error message when movie is manually stopped and started again, there is a little quirk.
 	* add a debug flag for proper debug printing
 	* get playhead position and broadcast to OSC
 	* fix setposition in the script 
